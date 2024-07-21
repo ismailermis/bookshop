@@ -9,7 +9,8 @@ import { CoreModule } from './core/core.module';
 import { ShopModule } from './shop/shop.module';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { PagingHeaderComponent } from './shared/paging-header/paging-header.component';
-import { ShopComponent } from './shop/shop.component';
+import { HomeModule } from './home/home.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ShopComponent } from './shop/shop.component';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    ShopModule
+    HomeModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
