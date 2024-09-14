@@ -37,6 +37,16 @@
           }
         }
       }
+    },    
+    {
+      "label": "Server-App",
+      "command":"ng s",
+      "type": "shell",
+      "problemMatcher":[],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
-  ]
+  ] 
 }
