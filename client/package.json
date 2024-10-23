@@ -19,12 +19,14 @@
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
     "bootstrap": "^5.2.3",
+    "cuid": "^3.0.0",
     "font-awesome": "^4.7.0",
     "libxmljs": "^1.0.11",
     "ngx-bootstrap": "^10.3.0",
     "ngx-toastr": "^15.2.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "uuid": "^10.0.0",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
