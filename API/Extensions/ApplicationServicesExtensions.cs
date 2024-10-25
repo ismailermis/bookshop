@@ -1,6 +1,8 @@
 using API.Errors;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Data.Identity;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
@@ -22,9 +24,16 @@ namespace API.Extensions
                 return ConnectionMultiplexer.Connect(options);
             });
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ITokenService, TokenService>();
             //services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddDbContext<AppIdentityDbContext>(x => 
+            {
+                x.UseSqlite(config.GetConnectionString("IdentityConnection"));
+            });
+
+             services.AddIdentityServices(config);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.Configure<ApiBehaviorOptions>(options =>
             {

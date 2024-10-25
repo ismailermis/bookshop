@@ -1,8 +1,12 @@
 using API.Errors;
 using API.Extensions;
 using API.Middleware;
+using Core.Entities.Identity;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Data.Identity;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +33,8 @@ internal class Program
         }
         app.UseStaticFiles();
         app.UseCors("CorsPolicy");
+
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
         using var scope = app.Services.CreateScope();
@@ -37,6 +43,11 @@ internal class Program
         var logger = services.GetRequiredService<ILogger<Program>>();
         try
         {
+            var userManager = services.GetRequiredService<UserManager<AppUser>>();
+            var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+            await identityContext.Database.MigrateAsync();
+            await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+
             await context.Database.MigrateAsync();
             await StoreContextSeed.SeedAsync(context);
         }
